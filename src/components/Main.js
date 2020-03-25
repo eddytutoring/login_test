@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 class Main extends Component {
   render() {
@@ -6,4 +7,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(Main); //TODO: GET USER OBJ FROM PROPS

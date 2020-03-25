@@ -11,14 +11,16 @@ email
 name
 dept
 go
+go_inputs
  */
 
 .sign_up_container {
   width: 400px;
-  height: 600px;
+  /* height: 570px; */
   border-radius: 12px;
   border: solid 1px #9a9a9a;
   display: flex;
+  padding-bottom: 40px;
   /* align-items: center; */
   flex-flow: column;
 }
@@ -53,5 +55,70 @@ go
   padding-bottom: 5px;
 }
 
-.email .name .dept .go {
+.email,
+.name,
+.dept,
+.go {
+  height: 30px;
+  border-radius: 5px;
+  border: solid #9f9f9f 1px;
+  padding: 0 0 0 10px;
+}
+
+.email,
+.name,
+.dept {
+  margin-bottom: 10px;
+}
+
+.go_container {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.go_container .go_inputs {
+  width: 85%;
+  display: flex;
+  flex-flow: column;
+  align-content: space-between;
+}
+
+.go_inputs input {
+  width: 100%;
+}
+
+.go_container .go_buttons {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.go_container .go_button {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #909090;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.go_container .go_button:not(:first-child),
+.go:not(:first-child) {
+  margin-top: 10px;
+}
+
+input {
+  /* padding: 0 0 0 10px; */
+}
+
+.button_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
