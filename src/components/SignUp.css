@@ -113,10 +113,6 @@ go_inputs
   margin-top: 10px;
 }
 
-input {
-  /* padding: 0 0 0 10px; */
-}
-
 .button_container {
   width: 100%;
   display: flex;

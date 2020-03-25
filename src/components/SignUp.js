@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import axios from "axios";
 import "./SignUp.css";
 
 class SignUp extends Component {
   state = {
     inputs: ["input-0"],
-    buttons: []
+    buttons: [],
+    email: "kelly.a@mdcrew.co.kr",
+    name: "",
+    dept: "",
+    go: [],
+    data: ""
   };
 
   appendInput() {
@@ -25,7 +31,23 @@ class SignUp extends Component {
     }));
   }
 
+  async sendUserInfo(email, name, dept, go) {
+    const params = {
+      email,
+      name,
+      dept,
+      go
+    };
+
+    const res = await axios.post("", params);
+    console.log(res.data);
+    this.setState({
+      data: res.data
+    });
+  }
+
   render() {
+    const { email, name, dept, go } = this.state;
     return (
       <div className="sign_up_container">
         <div className="logo_container">
@@ -47,10 +69,21 @@ class SignUp extends Component {
             className="name"
             name="name"
             placeholder="영문이름_한글이름 형식으로 입력해 주세요"
+            onChange={e => {
+              this.setState({ email: e.target.value });
+            }}
           />
 
           <span className="input_label">소속 부서</span>
-          <select className="dept" name="dept">
+          <select
+            className="dept"
+            name="dept"
+            value={this.state.message}
+            onChange={e => {
+              this.setState({ dept: e.target.value });
+              console.log(this.state.dept);
+            }}
+          >
             <option value="default">부서를 선택해주세요</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -82,7 +115,6 @@ class SignUp extends Component {
                   -
                 </button>
               ))}
-              {/*TODO:remove BOX PROGRAMMATICALLY */}
             </div>
           </div>
         </div>
@@ -91,18 +123,21 @@ class SignUp extends Component {
             to={{
               pathname: "/main",
               state: {
-                //userObj
+                email,
+                name,
+                dept,
+                go
               }
             }}
           >
-            <button className="login_button" onClick>
+            <button
+              className="login_button"
+              onClick={() => {
+                this.sendUserInfo(this.props.email, name, dept, go);
+              }}
+            >
               구글 계정으로 로그인하기
             </button>
-            {/*TODO: SendUserInfo to Server*/}
-            {/*
-            TODO:
-            IF, RECIEVE 200, THEN LINK TO MAIN
-            */}
           </Link>
         </div>
       </div>
