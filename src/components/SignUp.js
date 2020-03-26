@@ -59,7 +59,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const { email, name, dept, go } = this.state;
+    const { email, name, dept, go, message } = this.state;
     return (
       <div className="sign_up_container">
         <div className="logo_container">
@@ -154,15 +154,14 @@ class SignUp extends Component {
                 email: this.state.email,
                 name: this.state.name,
                 dept: this.state.dept,
-                go: this.state.go,
-                message: this.state.message
+                go: [...this.state.go, this.state.message]
               }
             }}
           >
             <button
               className="login_button"
               onClick={() => {
-                this.sendUserInfo(email, name, dept, go);
+                this.sendUserInfo(email, name, dept, [...go, message]);
                 this.setGo();
               }}
             >

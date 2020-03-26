@@ -6,21 +6,15 @@ class Main extends Component {
     console.log(this.props.location.state);
   }
 
-  state = {
-    go: this.props.location.state.go
-  };
-
   render() {
-    const { email, name, dept, message } = this.props.location.state;
-    const { go } = this.state;
-    console.log(this.state.go);
+    const { email, name, dept, go } = this.props.location.state;
     return (
       <div>
         <div>MAIN</div>
         <p>email: {email}</p>
         <p>name: {name}</p>
         <p>dept: {dept}</p>
-        <p>go: {go.concat(message)}</p>
+        <p>go: {go}</p>
       </div>
     );
   }
