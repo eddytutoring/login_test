@@ -13,23 +13,20 @@ const queryStr = qs.stringify({
   response_type: "token",
   scope: "profile"
 });
+
 const loginUrl = AUTHORIZE_URI + "?" + queryStr;
 
 class Login extends Component {
-  state = {
-    access_token: ""
-  };
-
-  async getAccessToken() {
-    const { access_token } = await qs.parse(window.location.hash.substr(1));
-    console.log(access_token);
+  getAccessToken() {
+    const access_token = qs.parse(window.location.hash.substr(1));
     if (!access_token) {
       window.location.assign(loginUrl);
       return null;
     }
-    this.setState({
-      access_token
-    });
+    console.log(access_token);
+  }
+  componentDidMount() {
+    console.log(this.access_token);
   }
 
   render() {
@@ -39,20 +36,21 @@ class Login extends Component {
           <h1 className="logo">Tutoring</h1>
           <h3 className="title">회의실 예약</h3>
         </div>
-        <Link
+        {/* <Link
           to={{
             pathname: "/sign_up"
           }}
+        > */}
+        <button
+          className="login_button"
+          onClick={() => {
+            this.getAccessToken();
+            console.log("clicked");
+          }}
         >
-          <button
-            className="login_button"
-            // onClick={() => {
-            //   this.getAccessToken();
-            // }}
-          >
-            구글 계정으로 로그인하기
-          </button>
-        </Link>
+          구글 계정으로 로그인하기
+        </button>
+        {/* </Link> */}
       </div>
     );
   }

@@ -7,14 +7,15 @@ class SignUp extends Component {
   state = {
     inputs: ["input-0"],
     buttons: [],
-    email: "kelly.a@mdcrew.co.kr",
+    email: this.props.match.params.email,
     name: "",
     dept: "",
     go: [],
-    data: ""
+    data: "",
+    message: ""
   };
 
-  appendInput() {
+  appendInput(value) {
     let newInput = `input-${this.state.inputs.length}`;
     let newButton = `button-${this.state.buttons.length}`;
     this.setState(prevState => ({
@@ -29,6 +30,17 @@ class SignUp extends Component {
       inputs: prevState.inputs.filter(input => input !== `input-${index + 1}`),
       buttons: prevState.buttons.filter(button => button !== `button-${index}`)
     }));
+  }
+
+  setGo() {
+    this.setState(prevState => ({
+      go: prevState.go.concat([this.input.value])
+    }));
+
+    // this.setState(prevState => ({
+
+    //   go: prevState.go.concat([this.input.value])
+    // }));
   }
 
   async sendUserInfo(email, name, dept, go) {
@@ -60,7 +72,7 @@ class SignUp extends Component {
           <input
             className="email"
             name="email"
-            placeholder="kelly.a@mdcrew.co.kr" //TODO: {this.props.email}
+            placeholder={this.state.email}
             disabled
           />
 
@@ -70,7 +82,7 @@ class SignUp extends Component {
             name="name"
             placeholder="영문이름_한글이름 형식으로 입력해 주세요"
             onChange={e => {
-              this.setState({ email: e.target.value });
+              this.setState({ name: e.target.value });
             }}
           />
 
@@ -93,7 +105,20 @@ class SignUp extends Component {
           <div className="go_container">
             <div className="go_inputs">
               {this.state.inputs.map((input, index) => (
-                <input className="go" name="go" id={index} key={input} />
+                <input
+                  ref={ref => {
+                    this.input = ref;
+                  }}
+                  className="go"
+                  name="go"
+                  id={index}
+                  key={input}
+                  onChange={e => {
+                    this.setState({
+                      message: e.target.value
+                    });
+                  }}
+                />
               ))}
             </div>
             <div className="go_buttons">
@@ -101,6 +126,9 @@ class SignUp extends Component {
                 className="go_button"
                 onClick={() => {
                   this.appendInput();
+                  this.setState({
+                    go: [...go, this.state.message]
+                  });
                 }}
               >
                 +
@@ -121,19 +149,21 @@ class SignUp extends Component {
         <div className="button_container">
           <Link
             to={{
-              pathname: "/main",
+              pathname: "/main/",
               state: {
-                email,
-                name,
-                dept,
-                go
+                email: this.state.email,
+                name: this.state.name,
+                dept: this.state.dept,
+                go: this.state.go,
+                message: this.state.message
               }
             }}
           >
             <button
               className="login_button"
               onClick={() => {
-                this.sendUserInfo(this.props.email, name, dept, go);
+                this.sendUserInfo(email, name, dept, go);
+                this.setGo();
               }}
             >
               구글 계정으로 로그인하기
