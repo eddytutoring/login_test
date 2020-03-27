@@ -40,6 +40,12 @@ class SignUp extends Component {
     }));
   }
 
+  deleteGo(index) {
+    this.setState(prevState => ({
+      go: prevState.go.slice(0, index - 1)
+    }));
+  }
+
   async sendUserInfo(email, name, dept, go) {
     const params = {
       email,
@@ -131,7 +137,10 @@ class SignUp extends Component {
                   className="go_button"
                   key={button}
                   id={index}
-                  onClick={() => this.remove(index)}
+                  onClick={() => {
+                    this.remove(index);
+                    this.deleteGo(index);
+                  }}
                 >
                   -
                 </button>
