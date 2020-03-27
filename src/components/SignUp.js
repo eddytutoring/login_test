@@ -62,7 +62,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const { email, name, dept, go, message } = this.state;
+    const { email, name, dept, go } = this.state;
     return (
       <div className="sign_up_container">
         <div className="logo_container">
@@ -93,7 +93,10 @@ class SignUp extends Component {
           <select
             className="dept"
             name="dept"
-            value={this.state.message}
+            value={this.state.dept}
+            ref={ref => {
+              this.dept = ref;
+            }}
             onChange={e => {
               this.setState({ dept: e.target.value });
               console.log(this.state.dept);
@@ -116,7 +119,16 @@ class SignUp extends Component {
                   name="go"
                   id={index}
                   key={input}
-                  onChange={e => this.setGo(index, e.target.value)}
+                  onChange={e => {
+                    this.setGo(index, e.target.value);
+                    if (
+                      this.state.name.indexOf("_") > -1 &&
+                      this.dept.value !== "default"
+                    ) {
+                      this.login.disabled = false;
+                      this.login.style = { backgroundColor: "#34bcff" };
+                    }
+                  }}
                 />
               ))}
             </div>
@@ -162,6 +174,11 @@ class SignUp extends Component {
           >
             <button
               className="login_button"
+              disabled
+              ref={ref => {
+                this.login = ref;
+              }}
+              style={{ backgroundColor: "#808080" }}
               onClick={() => {
                 this.sendUserInfo(email, name, dept, go);
               }}
