@@ -32,15 +32,12 @@ class SignUp extends Component {
     }));
   }
 
-  setGo() {
+  setGo(index, newValue) {
+    const updatedArray = [...this.state.go];
+    updatedArray[index] = newValue;
     this.setState(prevState => ({
-      go: prevState.go.concat([this.input.value])
+      go: updatedArray
     }));
-
-    // this.setState(prevState => ({
-
-    //   go: prevState.go.concat([this.input.value])
-    // }));
   }
 
   async sendUserInfo(email, name, dept, go) {
@@ -113,11 +110,7 @@ class SignUp extends Component {
                   name="go"
                   id={index}
                   key={input}
-                  onChange={e => {
-                    this.setState({
-                      message: e.target.value
-                    });
-                  }}
+                  onChange={e => this.setGo(index, e.target.value)}
                 />
               ))}
             </div>
@@ -154,18 +147,17 @@ class SignUp extends Component {
                 email: this.state.email,
                 name: this.state.name,
                 dept: this.state.dept,
-                go: [...this.state.go, this.state.message]
+                go: this.state.go
               }
             }}
           >
             <button
               className="login_button"
               onClick={() => {
-                this.sendUserInfo(email, name, dept, [...go, message]);
-                this.setGo();
+                this.sendUserInfo(email, name, dept, go);
               }}
             >
-              구글 계정으로 로그인하기
+              확인
             </button>
           </Link>
         </div>

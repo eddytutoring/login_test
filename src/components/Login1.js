@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
-import { Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./Login.css";
-import SignUp from "./SignUp";
 
 class Login1 extends Component {
   state = {
